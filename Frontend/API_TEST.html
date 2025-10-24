@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test Harness</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+        
+        :root {
+            --base-url-color: #007bff;
+            --get-color: #008858;
+            --post-color: #00529b;
+            --admin-color: #d9534f;
+            --border-color: #e0e0e0;
+            --bg-light: #f9f9f9;
+            --bg-dark: #2d3748;
+            --text-light: #f7fafc;
+            --text-dark: #1a202c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding: 20px;
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: var(--text-dark);
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            color: var(--text-dark);
+        }
+
+        .api-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .endpoint-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .endpoint-card h3 {
+            font-size: 1.1em;
+            font-weight: 600;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .endpoint-card h3 .method {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: white;
+        }
+
+        .method-post { background-color: var(--post-color); }
+        .method-get { background-color: var(--get-color); }
+
+        .endpoint-content {
+            padding: 20px;
+            display: grid;
+            gap: 15px;
+            flex-grow: 1;
+        }
+
+        .endpoint-content label {
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        .endpoint-content input[type="text"],
+        .endpoint-content textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9em;
+        }
+
+        .endpoint-content textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: 'Menlo', 'Courier New', monospace;
+        }
+
+        button {
+            background-color: var(--post-color);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease;
+        }
+        
+        button.get { background-color: var(--get-color); }
+        button.admin { background-color: var(--admin-color); }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        pre {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85em;
+            font-family: 'Menlo', 'Courier New', monospace;
+            min-height: 50px;
+            margin-top: auto; /* Pushes response to bottom */
+        }
+        
+        .global-settings {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Grievance System - API Test Harness</h1>
+    <p>This page allows the frontend team to test all backend API endpoints.</p>
+
+    <div class="global-settings">
+        <h2>Global Settings</h2>
+        <div class="endpoint-content">
+            <label for="base-url">API Base URL:</label>
+            <input type="text" id="base-url" value="http://localhost:3000">
+            <label for="grievance-id">Test Grievance ID:</label>
+            <input type="text" id="grievance-id" placeholder="Copy/paste an ID from a 'submit' response">
+        </div>
+    </div>
+
+    <h2>1. Authentication (Mocked)</h2>
+    <div class="api-container">
+        <!-- User Login -->
+        <div class="endpoint-card">
+            <h3>POST /api/auth/login <span class="method method-post">POST</span></h3>
+            <div class="endpoint-content">
+                <label for="login-body">Request Body:</label>
+                <textarea id="login-body">{
+  "username": "testuser",
+  "password": "password123"
+}</textarea>
+                <button id="login-btn">Test Login</button>
+                <pre id="login-response"></pre>
+            </div>
+        </div>
+
+        <!-- User Registration -->
+        <div class="endpoint-card">
+            <h3>POST /api/auth/register <span class="method method-post">POST</span></h3>
+            <div class="endpoint-content">
+                <label for="register-body">Request Body:</label>
+                <textarea id="register-body">{
+  "username": "newuser",
+  "password": "password123"
+}</textarea>
+                <button id="register-btn">Test Register</button>
+                <pre id="register-response"></pre>
+            </div>
+        </div>
+    </div>
+
+    <h2>2. Grievance Routes (Real Data)</h2>
+    <div class="api-container">
+        <!-- Submit Grievance -->
+        <div class="endpoint-card">
+            <h3>POST /api/grievance/submit <span class="method method-post">POST</span></h3>
+            <div class="endpoint-content">
+                <label for="submit-body">Request Body:</label>
+                <textarea id="submit-body">{
+  "title": "Water pump broken",
+  "description": "The main pump in the village square is not working.",
+  "mediaUrl": "https://example.com/image.png"
+}</textarea>
+                <button id="submit-btn">Test Submit</button>
+                <pre id="submit-response"></pre>
+            </div>
+        </div>
+        
+        <!-- Get My Grievances -->
+        <div class="endpoint-card">
+            <h3>GET /api/grievance/user <span class="method method-get">GET</span></h3>
+            <div class="endpoint-content">
+                <p>Gets all grievances. (Will be filtered by user when auth is complete).</p>
+                <button id="get-user-btn" class="get">Test Get My Grievances</button>
+                <pre id="get-user-response"></pre>
+            </div>
+        </div>
+
+        <!-- Get Official Grievances -->
+        <div class="endpoint-card">
+            <h3>GET /api/grievance/official <span class="method method-get">GET</span></h3>
+            <div class="endpoint-content">
+                <p>Gets all grievances with status `Pending`.</p>
+                <button id="get-official-btn" class="get">Test Get Official</button>
+                <pre id="get-official-response"></pre>
+            </div>
+        </div>
+
+        <!-- Get Community Grievances -->
+        <div class="endpoint-card">
+            <h3>GET /api/grievance/community <span class="method method-get">GET</span></h3>
+            <div class="endpoint-content">
+                <p>Gets all grievances with status `PendingVerification`.</p>
+                <button id="get-community-btn" class="get">Test Get Community</button>
+                <pre id="get-community-response"></pre>
+            </div>
+        </div>
+
+        <!-- Accept Grievance -->
+        <div class="endpoint-card">
+            <h3>POST /api/grievance/accept/:id <span class="method method-post">POST</span></h3>
+            <div class="endpoint-content">
+                <p>Uses the 'Test Grievance ID' from Global Settings.</p>
+                <button id="accept-btn">Test Accept</button>
+                <pre id="accept-response"></pre>
+            </div>
+        </div>
+
+        <!-- Set Resolution Time -->
+        <div class="endpoint-card">
+            <h3>POST /api/grievance/set-time/:id <span class="method method-post">POST</span></h3>
+            <div class="endpoint-content">
+                <p>Uses the 'Test Grievance ID' from Global Settings.</p>
+                <label for="set-time-body">Request Body:</label>
+                <textarea id="set-time-body">{
+  "timeInDays": 7
+}</textarea>
+                <button id="set-time-btn">Test Set Time</button>
+                <pre id="set-time-response"></pre>
+            </div>
+        </div>
+
+        <!-- Mark as Resolved -->
+        <div class="endpoint-card">
+            <h3>POST /api/grievance/resolve/:id <span class="method method-post">POST</span></h3>
+            <div class="endpoint-content">
+                <p>Uses the 'Test Grievance ID' from Global Settings.</p>
+                <button id="resolve-btn">Test Resolve</button>
+                <pre id="resolve-response"></pre>
+            </div>
+        </div>
+
+        <!-- Dispute a Resolution -->
+        <div class="endpoint-card">
+            <h3>POST /api/grievance/dispute/:id <span class="method method-post">POST</span></h3>
+            <div class="endpoint-content">
+                <p>Uses the 'Test Grievance ID' from Global Settings.</p>
+                <button id="dispute-btn">Test Dispute</button>
+                <pre id="dispute-response"></pre>
+            </div>
+        </div>
+
+    </div>
+
+    <h2>3. Admin Routes (Real Data)</h2>
+    <div class="api-container">
+        <!-- Get Disputed -->
+        <div class="endpoint-card">
+            <h3>GET /api/admin/disputed <span class="method method-get">GET</span></h3>
+            <div class="endpoint-content">
+                <p>Gets all grievances with status `Disputed`.</p>
+                <button id="get-disputed-btn" class="admin get">Test Get Disputed</button>
+                <pre id="get-disputed-response"></pre>
+            </div>
+        </div>
+
+        <!-- Get Overdue -->
+        <div class="endpoint-card">
+            <h3>GET /api/admin/overdue <span class="method method-get">GET</span></h3>
+            <div class="endpoint-content">
+                <p>Gets all grievances with status `Overdue`.</p>
+                <button id="get-overdue-btn" class="admin get">Test Get Overdue</button>
+                <pre id="get-overdue-response"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const getEl = (id) => document.getElementById(id);
+
+            // Global settings
+            const baseUrlInput = getEl('base-url');
+            const grievanceIdInput = getEl('grievance-id');
+            
+            // Helper function to make API calls
+            const apiCall = async (endpoint, method, body, responseEl) => {
+                const API_BASE_URL = baseUrlInput.value;
+                try {
+                    const options = {
+                        method: method,
+                        headers: { 'Content-Type': 'application/json' },
+                    };
+                    if (body) {
+                        options.body = JSON.stringify(body);
+                    }
+                    
+                    responseEl.textContent = 'Loading...';
+                    const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+                    
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(`HTTP error! status: ${response.status} - ${JSON.stringify(errorData)}`);
+                    }
+                    
+                    const data = await response.json();
+                    responseEl.textContent = JSON.stringify(data, null, 2);
+
+                    // If we just submitted a new grievance, save its ID for easier testing
+                    if (endpoint === '/api/grievance/submit' && data.grievanceId) {
+                        grievanceIdInput.value = data.grievanceId;
+                    }
+
+                } catch (err) {
+                    console.error('API Call Error:', err);
+                    responseEl.textContent = `Error: ${err.message}`;
+                }
+            };
+
+            // --- 1. Auth ---
+            getEl('login-btn').addEventListener('click', () => {
+                apiCall('/api/auth/login', 'POST', JSON.parse(getEl('login-body').value), getEl('login-response'));
+            });
+            getEl('register-btn').addEventListener('click', () => {
+                apiCall('/api/auth/register', 'POST', JSON.parse(getEl('register-body').value), getEl('register-response'));
+            });
+
+            // --- 2. Grievance ---
+            getEl('submit-btn').addEventListener('click', () => {
+                apiCall('/api/grievance/submit', 'POST', JSON.parse(getEl('submit-body').value), getEl('submit-response'));
+            });
+            getEl('get-user-btn').addEventListener('click', () => {
+                apiCall('/api/grievance/user', 'GET', null, getEl('get-user-response'));
+            });
+            getEl('get-official-btn').addEventListener('click', () => {
+                apiCall('/api/grievance/official', 'GET', null, getEl('get-official-response'));
+            });
+            getEl('get-community-btn').addEventListener('click', () => {
+                apiCall('/api/grievance/community', 'GET', null, getEl('get-community-response'));
+            });
+            getEl('accept-btn').addEventListener('click', () => {
+                const id = grievanceIdInput.value;
+                if (!id) { alert('Please set a Test Grievance ID first.'); return; }
+                apiCall(`/api/grievance/accept/${id}`, 'POST', {}, getEl('accept-response'));
+            });
+            getEl('set-time-btn').addEventListener('click', () => {
+                const id = grievanceIdInput.value;
+                if (!id) { alert('Please set a Test Grievance ID first.'); return; }
+                apiCall(`/api/grievance/set-time/${id}`, 'POST', JSON.parse(getEl('set-time-body').value), getEl('set-time-response'));
+            });
+            getEl('resolve-btn').addEventListener('click', () => {
+                const id = grievanceIdInput.value;
+                if (!id) { alert('Please set a Test Grievance ID first.'); return; }
+                apiCall(`/api/grievance/resolve/${id}`, 'POST', {}, getEl('resolve-response'));
+            });
+            getEl('dispute-btn').addEventListener('click', () => {
+                const id = grievanceIdInput.value;
+                if (!id) { alert('Please set a Test Grievance ID first.'); return; }
+                apiCall(`/api/grievance/dispute/${id}`, 'POST', {}, getEl('dispute-response'));
+            });
+
+            // --- 3. Admin ---
+            getEl('get-disputed-btn').addEventListener('click', () => {
+                apiCall('/api/admin/disputed', 'GET', null, getEl('get-disputed-response'));
+            });
+            getEl('get-overdue-btn').addEventListener('click', () => {
+                apiCall('/api/admin/overdue', 'GET', null, getEl('get-overdue-response'));
+            });
+
+        });
+    </script>
+</body>
+</html>
