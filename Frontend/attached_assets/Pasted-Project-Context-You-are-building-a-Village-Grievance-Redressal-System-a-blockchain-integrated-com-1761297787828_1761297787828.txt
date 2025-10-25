@@ -1,0 +1,382 @@
+Project Context
+You are building a Village Grievance Redressal System - a blockchain-integrated, community-verified platform that addresses the critical issue of false grievance closures in rural India. This system empowers communities through transparent verification mechanisms and prevents officials from tampering with or falsely closing complaints.
+
+Core Mission Statement
+Create a formal, accessible, and trustworthy government-style web platform that enables rural citizens to submit grievances through multiple channels (web, voice, SMS, WhatsApp) and allows community members to verify resolutions, ensuring accountability through blockchain transparency.
+
+Design Requirements
+1. Visual Identity & Color Scheme
+Primary Color Palette (Government-aligned, Rural-friendly):
+
+Primary Blue: #1C4587 (Trust, Government authority)
+Secondary Orange: #F4511E (Action, Energy - represents Indian government branding)
+Success Green: #2E7D32 (Resolution, Positive outcomes)
+Warning Amber: #F57C00 (Pending verification, Attention needed)
+Alert Red: #C62828 (Disputed, Overdue grievances)
+Neutral Background: #F5F5F5 (Clean, accessible)
+Text Primary: #212121 (High readability)
+Text Secondary: #757575 (Supporting information)
+
+Accessibility Considerations:
+
+High contrast ratios (WCAG AAA compliant)
+Large, readable fonts (minimum 16px for body text)
+Clear visual hierarchy
+Icons with text labels (for low-literacy users)
+
+
+2. Platform Architecture & User Interface Components
+A. Grievance Submission Form (Core Interface)
+Create a step-by-step, intuitive form with the following sections:
+Section 1: Problem Identification
+┌─────────────────────────────────────────────┐
+│  Problem Title *                             │
+│  ┌─────────────────────────────────────────┐ │
+│  │ [Enter brief problem description]       │ │
+│  └─────────────────────────────────────────┘ │
+│                                              │
+│  Category * (Dropdown)                       │
+│  ┌─────────────────────────────────────────┐ │
+│  │ ▼ Select Problem Type                   │ │
+│  └─────────────────────────────────────────┘ │
+│  Options:                                    │
+│  • Water Supply                              │
+│  • Road & Infrastructure                     │
+│  • Electricity                               │
+│  • Sanitation & Waste Management            │
+│  • Healthcare                                │
+│  • Education                                 │
+│  • Agriculture Support                       │
+│  • Social Welfare Schemes                    │
+│  • Other                                     │
+└─────────────────────────────────────────────┘
+```
+
+**Section 2: Evidence Upload**
+```
+┌─────────────────────────────────────────────┐
+│  Upload Photo/Video Evidence                 │
+│  ┌─────────────────────────────────────────┐ │
+│  │  📷  📹                                  │ │
+│  │  [Drag & Drop or Click to Upload]       │ │
+│  │  Supported: JPG, PNG, MP4 (Max 10MB)    │ │
+│  └─────────────────────────────────────────┘ │
+│  [Preview uploaded files here]               │
+└─────────────────────────────────────────────┘
+```
+
+**Section 3: Detailed Description**
+```
+┌─────────────────────────────────────────────┐
+│  Problem Description *                       │
+│  ┌─────────────────────────────────────────┐ │
+│  │                                          │ │
+│  │  Describe your problem in detail...     │ │
+│  │  (Minimum 50 characters)                │ │
+│  │                                          │ │
+│  │                                          │ │
+│  └─────────────────────────────────────────┘ │
+│  Character count: 0/500                      │
+│                                              │
+│  🎤 Voice Recording (Alternative Input)      │
+│  ┌─────────────────────────────────────────┐ │
+│  │  ⏺️ Start Recording  │  ⏹️ Stop  │ ▶️ Play │ │
+│  └─────────────────────────────────────────┘ │
+│  Recording time: 00:00 / 03:00 max          │
+│  📝 Voice will be auto-transcribed          │
+└─────────────────────────────────────────────┘
+```
+
+**Section 4: Location & Contact Information**
+```
+┌─────────────────────────────────────────────┐
+│  Village Name *                              │
+│  ┌─────────────────────────────────────────┐ │
+│  │ [Enter your village name]               │ │
+│  └─────────────────────────────────────────┘ │
+│                                              │
+│  Your Name *                                 │
+│  ┌─────────────────────────────────────────┐ │
+│  │ [Full name as per Aadhaar]              │ │
+│  └─────────────────────────────────────────┘ │
+│                                              │
+│  Mobile Number *                             │
+│  ┌─────────────────────────────────────────┐ │
+│  │ +91 [10-digit mobile number]            │ │
+│  └─────────────────────────────────────────┘ │
+│  📱 You'll receive SMS updates              │
+│                                              │
+│  Email Address (Optional)                    │
+│  ┌─────────────────────────────────────────┐ │
+│  │ [your.email@example.com]                │ │
+│  └─────────────────────────────────────────┘ │
+│                                              │
+│  [✓] I confirm the information is accurate   │
+│                                              │
+│  [  Submit Grievance  ]  [  Reset Form  ]   │
+└─────────────────────────────────────────────┘
+```
+
+---
+
+#### **B. Dashboard Interfaces**
+
+**1. User Dashboard**
+```
+┌──────────────────────────────────────────────────────────┐
+│  📊 My Grievances                                         │
+│  ┌────────────────────────────────────────────────────┐  │
+│  │ Status Filter: [All] [Pending] [Overdue]           │  │
+│  │              [Pending Verification] [Verified]      │  │
+│  └────────────────────────────────────────────────────┘  │
+│                                                           │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ 🟡 OVERDUE (#GR2025001)                             │ │
+│  │ Road Repair Needed - Main Village Road              │ │
+│  │ Submitted: Jan 15, 2025 | Due: Feb 14, 2025        │ │
+│  │ Days Overdue: 7 | Assigned: Panchayat Office       │ │
+│  │ [View Details] [Auto-Escalated to District]        │ │
+│  └─────────────────────────────────────────────────────┘ │
+│                                                           │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ 🟠 PENDING VERIFICATION (#GR2025002)                │ │
+│  │ Water Supply Issue - Well Pump Not Working          │ │
+│  │ Marked Resolved: Feb 18, 2025                       │ │
+│  │ Community Verification: ⏱️ 5 days remaining         │ │
+│  │ [View Resolution] [Verify/Dispute]                  │ │
+│  └─────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────┘
+```
+
+**2. Official Dashboard**
+```
+┌──────────────────────────────────────────────────────────┐
+│  👔 Assigned Grievances (Panchayat Officer)               │
+│  ┌────────────────────────────────────────────────────┐  │
+│  │ New Assignments: 3 | In Progress: 5 | Overdue: 2  │  │
+│  └────────────────────────────────────────────────────┘  │
+│                                                           │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ 🔴 NEW ASSIGNMENT (#GR2025003)                      │ │
+│  │ Electricity Power Cut - Daily 4 Hours               │ │
+│  │ Village: Rampur | Submitted: Feb 20, 2025          │ │
+│  │ Category: Electricity | Priority: High              │ │
+│  │                                                      │ │
+│  │ Set Resolution Timeline:                            │ │
+│  │ ┌──────────────────────────────────────┐           │ │
+│  │ │ ▼ Select Days (Max 30)              │           │ │
+│  │ └──────────────────────────────────────┘           │ │
+│  │ Options: 7 days | 15 days | 30 days                │ │
+│  │                                                      │ │
+│  │ [✓ Accept Task] [View Full Details]                │ │
+│  └─────────────────────────────────────────────────────┘ │
+│                                                           │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ 🟢 IN PROGRESS (#GR2025001)                         │ │
+│  │ Road Repair - Main Village Road                     │ │
+│  │ Deadline: Feb 25, 2025 (5 days left)                │ │
+│  │ Progress: ██████░░░░ 60%                            │ │
+│  │                                                      │ │
+│  │ Upload Resolution Evidence:                         │ │
+│  │ [📷 Upload Photos] [Add Comments]                   │ │
+│  │ [✓ Mark as Resolved]                                │ │
+│  └─────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────┘
+```
+
+**3. Community Verification Dashboard (Public)**
+```
+┌──────────────────────────────────────────────────────────┐
+│  👥 Community Verification Center                         │
+│  Help verify resolved grievances in your area             │
+│  ┌────────────────────────────────────────────────────┐  │
+│  │ Village: [All Villages ▼] | Active: 12 grievances │  │
+│  └────────────────────────────────────────────────────┘  │
+│                                                           │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ ⏱️ PENDING VERIFICATION (#GR2025002)                 │ │
+│  │ Water Supply Restored - Well Pump Repaired          │ │
+│  │ Village: Rampur | Resolved On: Feb 18, 2025        │ │
+│  │ Verification Window: ⏰ 5 days, 14 hours left       │ │
+│  │                                                      │ │
+│  │ Official's Resolution Photos:                       │ │
+│  │ [🖼️ Photo 1] [🖼️ Photo 2] [🖼️ Photo 3]             │ │
+│  │                                                      │ │
+│  │ Community Votes: ✓ 23 Verified | ✗ 2 Disputed      │ │
+│  │                                                      │ │
+│  │ Have you verified this resolution?                  │ │
+│  │ [✅ Yes, It's Fixed] [❌ No, Still an Issue]        │ │
+│  │                                                      │ │
+│  │ If disputing, upload current evidence:              │ │
+│  │ [📷 Upload New Photos/Videos]                       │ │
+│  └─────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────┘
+```
+
+**4. Admin Oversight Dashboard**
+```
+┌──────────────────────────────────────────────────────────┐
+│  🛡️ Administrative Control Panel                         │
+│  [Password Protected: admin.html]                        │
+│  ┌────────────────────────────────────────────────────┐  │
+│  │ System Overview                                    │  │
+│  │ Total Grievances: 1,247 | Active: 156             │  │
+│  │ Resolution Rate: 87.3% | Avg Time: 12 days        │  │
+│  └────────────────────────────────────────────────────┘  │
+│                                                           │
+│  ⚠️ DISPUTED GRIEVANCES (Requires Escalation)            │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ #GR2025005 - Road Repair (3 disputes)              │ │
+│  │ Rampur Village | Officer: Sharma                    │ │
+│  │ [View Dispute Evidence] [Escalate to District]     │ │
+│  └─────────────────────────────────────────────────────┘ │
+│                                                           │
+│  🔴 OVERDUE GRIEVANCES (Auto-Escalation Triggered)        │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ #GR2025001 - Electricity (14 days overdue)         │ │
+│  │ Sonpur Village | Officer: Kumar                     │ │
+│  │ [Review Case] [Reassign] [Escalate]                │ │
+│  └─────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────┘
+
+3. Technical Implementation Requirements
+Frontend Architecture (PWA)
+Tech Stack:
+
+HTML5 (Semantic markup for accessibility)
+CSS3 (Flexbox/Grid for responsive design)
+Vanilla JavaScript (ES6+)
+Bootstrap 5 (for responsive components)
+Service Workers (for offline functionality)
+
+Key Features to Implement:
+
+Progressive Web App (PWA) Configuration
+
+javascript// manifest.json
+{
+  "name": "Village Grievance System",
+  "short_name": "VGS",
+  "description": "Submit and track village grievances",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1C4587",
+  "theme_color": "#1C4587",
+  "icons": [...]
+}
+
+Voice Recording Implementation
+
+javascript// Voice recording with Web Audio API
+const mediaRecorder = new MediaRecorder(stream);
+// Auto-transcription integration with Web Speech API
+const recognition = new webkitSpeechRecognition();
+recognition.lang = 'hi-IN'; // Hindi support
+
+Offline-First Architecture
+
+javascript// Service Worker for offline data sync
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
+});
+
+API Integration Points
+
+javascript// Grievance submission
+fetch('/api/grievance/submit', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    title, category, description, audioUrl,
+    photos, villageName, name, email, mobile
+  })
+});
+
+// Community verification
+fetch('/api/grievance/dispute/:id', {
+  method: 'POST',
+  body: formData // with new evidence
+});
+
+4. User Experience Enhancements
+Accessibility Features:
+
+🎤 Voice input for low-literacy users
+🔊 Text-to-speech for reading grievance status
+📱 SMS notifications for every status change
+🌐 Multi-language support (Hindi, regional languages)
+📶 Offline mode with auto-sync when online
+🖼️ Visual icons with text labels
+
+Trust & Transparency Indicators:
+
+Blockchain transaction IDs visible on verified grievances
+Real-time timer countdowns (7-day verification window)
+Public vote counters on community dashboard
+Auto-escalation badges (system-triggered, not manual)
+
+
+5. Design Patterns & Components
+Button Styles:
+css.btn-primary { background: #1C4587; } /* Government actions */
+.btn-success { background: #2E7D32; } /* Verify/Confirm */
+.btn-warning { background: #F57C00; } /* Pending actions */
+.btn-danger { background: #C62828; } /* Dispute/Cancel */
+Status Badges:
+
+🔵 Pending (Blue) - #1976D2
+🟠 Pending Verification (Orange) - #F57C00
+🟢 Verified (Green) - #2E7D32
+🔴 Overdue/Disputed (Red) - #C62828
+⚪ Closed (Grey) - #9E9E9E
+
+Card Layout Pattern:
+html<div class="grievance-card">
+  <div class="card-header">
+    <span class="status-badge">STATUS</span>
+    <span class="grievance-id">#GR2025001</span>
+  </div>
+  <div class="card-body">
+    <h3 class="grievance-title">...</h3>
+    <p class="grievance-meta">...</p>
+    <div class="timer">⏱️ Time remaining: ...</div>
+  </div>
+  <div class="card-actions">
+    <button>Primary Action</button>
+  </div>
+</div>
+
+6. Blockchain Integration (Frontend Display)
+Show Blockchain Transparency:
+html<div class="blockchain-proof">
+  <h4>🔗 Blockchain Verification</h4>
+  <p>Transaction Hash: <code>0x7d2f...</code></p>
+  <p>Block Number: 15,234,567</p>
+  <a href="etherscan.io/tx/..." target="_blank">
+    View on Blockchain Explorer
+  </a>
+</div>
+
+Final Deliverables Checklist
+✅ Grievance Submission Form with all 4 sections (Title, Category, Description+Voice, Contact)
+✅ User Dashboard showing status-filtered grievances
+✅ Official Dashboard with Accept/Timer/Resolve workflow
+✅ Community Verification Interface with dispute mechanism
+✅ Admin Panel (admin.html) for disputed/overdue cases
+✅ PWA Configuration (manifest.json, service worker)
+✅ Responsive Design (mobile-first, tablet, desktop)
+✅ Color scheme aligned with government aesthetics
+✅ Accessibility features (voice, high contrast, clear typography)
+✅ API integration using fetch() for all endpoints
+
+Success Metrics
+
+Submission success rate: >95% (even with poor connectivity)
+Form completion time: <3 minutes for average user
+Community participation: >30% of users verify grievances
+Official response time: <24 hours to accept tasks
+False closure prevention: <5% disputed resolutions
